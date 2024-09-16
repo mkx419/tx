@@ -1,0 +1,48 @@
+{
+  "name": "tx",
+  "private": true,
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/mkx419/tx",
+  "bugs": {
+    "url": "https://github.com/mkx419/tx/issues",
+    "email": "mkx419@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "mkx419",
+    "email": "mkx419@gmail.com"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkx419/tx.git"
+  },
+  "scripts": {
+    "ws:tx": "pnpm -F @mkx419/tx",
+    "ws:rollup": "pnpm -F @mkx419/rollup-plugin-tx",
+    "build:tx": "pnpm ws:tx build",
+    "build:rollup": "pnpm ws:rollup build",
+    "build": "pnpm build:tx && pnpm build:rollup",
+    "test:tx": "pnpm ws:tx test",
+    "test": "pnpm test:tx"
+  },
+  "packageManager": "pnpm@9.10.0",
+  "engines": {
+    "pnpm": "^9.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint__js": "^8.42.3",
+    "@vitest/coverage-v8": "^2.1.1",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.5.0",
+    "vitest": "^2.1.1"
+  }
+}

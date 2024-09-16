@@ -1,0 +1,53 @@
+{
+  "name": "@mkx419/tx",
+  "version": "0.0.0",
+  "description": "Simple and useful utility for Tailwind CSS",
+  "keywords": [
+    "tailwindcss"
+  ],
+  "homepage": "https://github.com/mkx419/tx",
+  "bugs": {
+    "url": "https://github.com/mkx419/tx/issues",
+    "email": "mkx419@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "mkx419",
+    "email": "mkx419@gmail.com"
+  },
+  "type": "module",
+  "files": [
+    "./dist",
+    "./types"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./types/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkx419/tx.git",
+    "directory": "packages/tx"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest"
+  },
+  "packageManager": "pnpm@9.10.0",
+  "engines": {
+    "pnpm": "^9.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@mkx419/tsestree-walker": "^0.1.0",
+    "@typescript-eslint/typescript-estree": "^8.5.0",
+    "magic-string": "^0.30.11"
+  }
+}
