@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "@eslint/js"
+          - "@types/eslint-config-prettier"
+          - "@types/eslint__js"
+          - "@vitest/coverage-v8"
+          - "eslint"
+          - "eslint-config-prettier"
+          - "prettier"
+          - "tsup"
+          - "typescript"
+          - "typescript-eslint"
+          - "vitest"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/tx"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    groups:
+      dependencies:
+        patterns:
+          - "@mkx419/tsestree-walker"
+          - "@typescript-eslint/typescript-estree"
+          - "magic-string"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/rollup-plugin-tx"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "rollup"
