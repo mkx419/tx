@@ -43,7 +43,8 @@
     "directory": "packages/rollup-plugin-tx"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "version": "pnpm version"
   },
   "packageManager": "pnpm@9.10.0",
   "engines": {

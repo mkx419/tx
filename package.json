@@ -26,7 +26,9 @@
     "build:rollup": "pnpm ws:rollup build",
     "build": "pnpm build:tx && pnpm build:rollup",
     "test:tx": "pnpm ws:tx test",
-    "test": "pnpm test:tx"
+    "test": "pnpm test:tx",
+    "version:tx": "pnpm ws:tx version",
+    "version:rollup": "pnpm ws:rollup version"
   },
   "packageManager": "pnpm@9.10.0",
   "engines": {
