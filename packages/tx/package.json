@@ -37,7 +37,8 @@
   "scripts": {
     "build": "tsup",
     "test": "vitest",
-    "version": "pnpm version"
+    "version": "pnpm version",
+    "publish": "pnpm publish"
   },
   "packageManager": "pnpm@9.10.0",
   "engines": {

@@ -28,7 +28,9 @@
     "test:tx": "pnpm ws:tx test",
     "test": "pnpm test:tx",
     "version:tx": "pnpm ws:tx version",
-    "version:rollup": "pnpm ws:rollup version"
+    "version:rollup": "pnpm ws:rollup version",
+    "publish:tx": "pnpm ws:tx publish",
+    "publish:rollup": "pnpm ws:rollup publish"
   },
   "packageManager": "pnpm@9.10.0",
   "engines": {
