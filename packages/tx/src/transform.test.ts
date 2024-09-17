@@ -1,14 +1,18 @@
 import { describe } from "vitest";
-import { transform } from ".";
+import { transform as _transform } from "./transform";
 
 function clean(strings: TemplateStringsArray, ...values: unknown[]) {
   return String.raw(strings, ...values).replace(/\n\s+/g, "");
 }
 
+function transform(source: string) {
+  return _transform(source).code;
+}
+
 describe.concurrent("tx", (test) => {
   test("normal", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", "text-white");
     `;
 
@@ -19,7 +23,7 @@ describe.concurrent("tx", (test) => {
 
   test("local name", async ({ expect }) => {
     const src = clean`
-    import { tx as x } from "virtual:tx";
+    import { tx as x } from "@mkx419/tx";
     x("bg-blue-800", "text-white");
     `;
 
@@ -32,7 +36,7 @@ describe.concurrent("tx", (test) => {
 
   test("logical", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", true && "font-bold", "text-white");
     `;
 
@@ -43,7 +47,7 @@ describe.concurrent("tx", (test) => {
 
   test("logical (first)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx(true && "font-bold", "bg-blue-800", "text-white");
     `;
 
@@ -54,7 +58,7 @@ describe.concurrent("tx", (test) => {
 
   test("logical (last)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", "text-white", true && "font-bold");
     `;
 
@@ -65,7 +69,7 @@ describe.concurrent("tx", (test) => {
 
   test("logical (function)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", true && "font-bold", x());
     `;
 
@@ -76,7 +80,7 @@ describe.concurrent("tx", (test) => {
 
   test("logical (variable)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", true && "font-bold", x);
     `;
 
@@ -87,7 +91,7 @@ describe.concurrent("tx", (test) => {
 
   test("multiple tx (static)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", "text-white", tx("font-bold", "text-3xl"));
     `;
 
@@ -100,7 +104,7 @@ describe.concurrent("tx", (test) => {
 
   test("multiple tx (not static)", async ({ expect }) => {
     const src = clean`
-    import { tx } from "virtual:tx";
+    import { tx } from "@mkx419/tx";
     tx("bg-blue-800", "text-white", tx(true ? "font-bold" : "text-3xl"));
     `;
 
@@ -111,7 +115,7 @@ describe.concurrent("tx", (test) => {
 
   test("tm", async ({ expect }) => {
     const src = clean`
-    import { tx, tm } from "virtual:tx";
+    import { tx, tm } from "@mkx419/tx";
     tx(tm("hover:", "bg-blue-800"), "text-white");
     `;
 
@@ -124,7 +128,7 @@ describe.concurrent("tx", (test) => {
 describe.concurrent("tm", (test) => {
   test("normal", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("hover:", "bg-blue-800");
     `;
 
@@ -137,7 +141,7 @@ describe.concurrent("tm", (test) => {
 
   test("multiple values", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("hover:", "bg-blue-800 text-white");
     `;
 
@@ -150,7 +154,7 @@ describe.concurrent("tm", (test) => {
 
   test("multiple tm", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("lg:", tm("hover:", "bg-blue-800"));
     `;
 
@@ -163,7 +167,7 @@ describe.concurrent("tm", (test) => {
 
   test("static tx", async ({ expect }) => {
     const src = clean`
-    import { tx, tm } from "virtual:tx";
+    import { tx, tm } from "@mkx419/tx";
     tm("hover:", tx("bg-blue-800", "text-white"));
     `;
 
@@ -176,7 +180,7 @@ describe.concurrent("tm", (test) => {
 
   test("local name", async ({ expect }) => {
     const src = clean`
-    import { tm as m } from "virtual:tx";
+    import { tm as m } from "@mkx419/tx";
     m("hover:", "bg-blue-800");
     `;
 
@@ -189,7 +193,7 @@ describe.concurrent("tm", (test) => {
 
   test("too few arguments", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("hover:");
     `;
 
@@ -198,7 +202,7 @@ describe.concurrent("tm", (test) => {
 
   test("too many arguments", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("hover:", "bg-blue-800", "text-white");
     `;
 
@@ -207,7 +211,7 @@ describe.concurrent("tm", (test) => {
 
   test("first argument", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm(1, "bg-blue-800");
     `;
 
@@ -216,7 +220,7 @@ describe.concurrent("tm", (test) => {
 
   test("second argument (not string literal)", async ({ expect }) => {
     const src = clean`
-    import { tm } from "virtual:tx";
+    import { tm } from "@mkx419/tx";
     tm("hover:", 2);
     `;
 
@@ -227,7 +231,7 @@ describe.concurrent("tm", (test) => {
 
   test("second argument (not static tx)", async ({ expect }) => {
     const src = clean`
-    import { tx, tm } from "virtual:tx";
+    import { tx, tm } from "@mkx419/tx";
     tm("hover:", tx(true && "bg-blue-800"));
     `;
 
@@ -239,15 +243,15 @@ describe.concurrent("tm", (test) => {
 
 describe.concurrent("tv", (test) => {
   test("import", async ({ expect }) => {
-    const src = `import { tv } from "virtual:tx";`;
-    const dist = `import { tv } from "/@id/__x00__virtual:tx";`;
+    const src = `import { tv } from "@mkx419/tx";`;
+    const dist = `import { tv } from "@mkx419/tx";`;
 
     expect(transform(src)).toBe(dist);
   });
 
   test("import (local name)", async ({ expect }) => {
-    const src = `import { tv as v } from "virtual:tx";`;
-    const dist = `import { tv as v } from "/@id/__x00__virtual:tx";`;
+    const src = `import { tv as v } from "@mkx419/tx";`;
+    const dist = `import { tv as v } from "@mkx419/tx";`;
 
     expect(transform(src)).toBe(dist);
   });

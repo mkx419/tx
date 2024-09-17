@@ -41,22 +41,12 @@ export default defineConfig({
 });
 ```
 
-### tsconfig.json
-
-```json
-{
-  "compilerOptions": {
-    "types": ["@mkx419/tx/types"]
-  }
-}
-```
-
 ## Usage
 
 ### tx
 
 ```js
-import { tx } from "virtual:tx";
+import { tx } from "@mkx419/tx";
 
 tx("bg-black", "text-white", true && "font-bold");
 ```
@@ -70,7 +60,7 @@ to
 ### tm
 
 ```js
-import { tx } from "virtual:tx";
+import { tx } from "@mkx419/tx";
 
 tm("hover:", tx("bg-black", "text-white"));
 ```
@@ -84,7 +74,7 @@ to
 ### tv
 
 ```js
-import { tv } from "virtual:tx";
+import { tv } from "@mkx419/tx";
 
 const size = tv({
   sm: "h-4",
@@ -98,7 +88,7 @@ size("sm");
 to
 
 ```js
-import { tv } from "/@id/__x00__virtual:tx";
+import { tv } from "@mkx419/tx";
 
 const size = tv({
   sm: "h-4",

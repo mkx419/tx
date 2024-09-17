@@ -2,9 +2,9 @@ import { WalkerBase } from "@mkx419/tsestree-walker";
 import { AST_NODE_TYPES, parse, TSESTree } from "@typescript-eslint/typescript-estree";
 import MagicString from "magic-string";
 
-import { VIRTUAL_MODULE } from "./constants";
-
 type FuncName = "tx" | "tm";
+
+const VIRTUAL_MODULE = "@mkx419/tx";
 
 class Transformer extends WalkerBase {
   private source: MagicString;
@@ -240,6 +240,6 @@ function tm(modifier: string, value: string) {
     .join(" ");
 }
 
-export function rawTransform(source: string, filename?: string) {
+export function transform(source: string, filename?: string) {
   return new Transformer(source, filename).transform();
 }

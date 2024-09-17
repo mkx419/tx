@@ -17,16 +17,16 @@
   },
   "type": "module",
   "files": [
-    "./dist",
-    "./types"
+    "./dist"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./types": {
-      "types": "./types/index.d.ts"
+    "./transform": {
+      "types": "./dist/transform.d.ts",
+      "import": "./dist/transform.js"
     }
   },
   "repository": {
@@ -45,6 +45,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.0"
   },
   "dependencies": {
     "@mkx419/tsestree-walker": "^0.1.0",

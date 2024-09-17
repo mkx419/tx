@@ -1,6 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "types": ["@mkx419/tx/types"]
-  }
-}
