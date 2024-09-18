@@ -40,7 +40,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mkx419/tx.git",
-    "directory": "packages/rollup-plugin-tx"
+    "directory": "packages/rollup"
   },
   "scripts": {
     "build": "tsup",
