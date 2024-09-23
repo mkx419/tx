@@ -157,8 +157,8 @@ describe.concurrent("filename", (test) => {
 
   test("filemame", async ({ expect }) => {
     const src = 'import { tv } from "@mkx419/tx";';
-    const filename = "tx.ts";
-    const result = transform(src, filename);
+    const fileName = "tx.ts";
+    const result = transform(src, { fileName });
 
     expect(result.map.file).toBe("tx.ts");
     expect(result.map.sources).toStrictEqual(["tx.ts"]);

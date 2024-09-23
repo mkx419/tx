@@ -7,13 +7,13 @@ import type { Operation } from "./types";
 
 export abstract class RecursiveTransformer<T extends TSESTree.Node> extends WalkerBase {
   protected source: MagicString;
-  protected filename: string | undefined;
+  protected fileName: string | undefined;
   private maps: MagicString[] = [];
 
-  constructor(source: string, filename?: string) {
+  constructor(source: string, fileName?: string) {
     super();
     this.source = new MagicString(source);
-    this.filename = filename;
+    this.fileName = fileName;
   }
 
   protected override enter(node: TSESTree.Node): void {
@@ -62,8 +62,8 @@ export abstract class RecursiveTransformer<T extends TSESTree.Node> extends Walk
           () => {},
           { decodedMappings: true },
         ) as DecodedSourceMap),
-        file: this.filename as string,
-        sources: this.filename ? [this.filename] : [""],
+        file: this.fileName as string,
+        sources: this.fileName ? [this.fileName] : [""],
         sourcesContent: undefined,
       }),
     };

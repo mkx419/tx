@@ -41,4 +41,5 @@ updates:
     groups:
       dev-dependencies:
         patterns:
+          - "@types/node"
           - "rollup"

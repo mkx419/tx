@@ -4,7 +4,6 @@ import { RecursiveTransformer } from "./recursive";
 import { simplifyTemplateLiteral } from "./template-literal";
 import type { Operation } from "./types";
 
-const MODULE = "@mkx419/tx";
 const TRANSFORM = ["tx", "tm"] as const;
 const NO_TRANSFORM = ["tv"] as const;
 
@@ -12,8 +11,16 @@ type Func = Omit<TSESTree.CallExpression, "callee"> & { callee: TSESTree.Identif
 type FuncName = (typeof TRANSFORM)[number];
 type FuncNameMap = Record<string, FuncName>;
 
+export type Options = Partial<{ fileName: string; moduleName: string }>;
+
 export class Transformer extends RecursiveTransformer<Func> {
+  private moduleName: string;
   private funcNameMap: FuncNameMap = {};
+
+  constructor(source: string, { fileName, moduleName = "@mkx419/tx" }: Options) {
+    super(source, fileName);
+    this.moduleName = moduleName;
+  }
 
   protected override enter(node: TSESTree.Node): void {
     super.enter(node);
@@ -21,7 +28,7 @@ export class Transformer extends RecursiveTransformer<Func> {
     if (
       this.isFirst() &&
       node.type === AST_NODE_TYPES.ImportDeclaration &&
-      node.source.value === MODULE
+      node.source.value === this.moduleName
     ) {
       this.apply(this.transformImport(node));
     }
@@ -107,7 +114,7 @@ export class Transformer extends RecursiveTransformer<Func> {
     }
 
     return values.length
-      ? { range: node.range, content: `import { ${values.join(", ")} } from "${MODULE}";` }
+      ? { range: node.range, content: `import { ${values.join(", ")} } from "${this.moduleName}";` }
       : { range: node.range };
   }
 }
@@ -124,6 +131,7 @@ function getValue(node: TSESTree.StringLiteral | TSESTree.TemplateLiteral) {
   switch (node.type) {
     case AST_NODE_TYPES.Literal:
       return node.value;
+
     case AST_NODE_TYPES.TemplateLiteral:
       return node.quasis[0].value.cooked;
   }
