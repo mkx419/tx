@@ -41,6 +41,14 @@ export default defineConfig({
 });
 ```
 
+### VSCode
+
+```json
+{
+  "tailwindCSS.experimental.classRegex": [["t[xmv]\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]]
+}
+```
+
 ## Usage
 
 ### tx
