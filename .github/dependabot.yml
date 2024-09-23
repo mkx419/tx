@@ -28,12 +28,13 @@ updates:
     groups:
       dependencies:
         patterns:
+          - "@ampproject/remapping"
           - "@mkx419/tsestree-walker"
           - "@typescript-eslint/typescript-estree"
           - "magic-string"
 
   - package-ecosystem: "npm"
-    directory: "/packages/rollup-plugin-tx"
+    directory: "/packages/rollup"
     schedule:
       interval: "daily"
     versioning-strategy: "increase"

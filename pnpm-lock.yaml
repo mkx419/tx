@@ -42,7 +42,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
 
-  packages/rollup-plugin-tx:
+  packages/rollup:
     dependencies:
       '@mkx419/tx':
         specifier: workspace:^
@@ -54,6 +54,9 @@ importers:
 
   packages/tx:
     dependencies:
+      '@ampproject/remapping':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@mkx419/tsestree-walker':
         specifier: ^0.1.0
         version: 0.1.0(typescript@5.5.4)
@@ -63,6 +66,9 @@ importers:
       magic-string:
         specifier: ^0.30.11
         version: 0.30.11
+      typescript:
+        specifier: ^5.5.0
+        version: 5.5.4
 
 packages:
 

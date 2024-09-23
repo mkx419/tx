@@ -36,7 +36,6 @@
   },
   "scripts": {
     "build": "tsup",
-    "test": "vitest",
     "version": "pnpm version"
   },
   "packageManager": "pnpm@9.10.0",
@@ -50,6 +49,7 @@
     "typescript": "^5.5.0"
   },
   "dependencies": {
+    "@ampproject/remapping": "^2.3.0",
     "@mkx419/tsestree-walker": "^0.1.0",
     "@typescript-eslint/typescript-estree": "^8.5.0",
     "magic-string": "^0.30.11"
