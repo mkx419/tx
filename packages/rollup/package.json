@@ -65,7 +65,7 @@
     "@mkx419/tx": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
+    "@types/node": "^22.7.2",
     "rollup": "^4.22.4"
   }
 }
