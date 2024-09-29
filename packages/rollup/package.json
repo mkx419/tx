@@ -4,7 +4,6 @@
   "description": "Rollup plugin for tx",
   "keywords": [
     "rollup-plugin",
-    "vite-plugin",
     "tailwindcss",
     "tx"
   ],
