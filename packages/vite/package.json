@@ -1,6 +1,6 @@
 {
   "name": "@mkx419/vite-plugin-tx",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Vite plugin for tx",
   "keywords": [
     "vite-plugin",
