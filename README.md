@@ -6,14 +6,30 @@ Simple and useful utility for [Tailwind CSS](https://tailwindcss.com/).
 
 ### npm
 
+#### Rollup
+
 ```bash
 npm i -D @mkx419/tx @mkx419/rollup-plugin-tx
 ```
 
+#### Vite
+
+```bash
+npm i -D @mkx419/tx @mkx419/vite-plugin-tx
+```
+
 ### pnpm
+
+#### Rollup
 
 ```bash
 pnpm add -D @mkx419/tx @mkx419/rollup-plugin-tx
+```
+
+#### Vite
+
+```bash
+pnpm add -D @mkx419/tx @mkx419/vite-plugin-tx
 ```
 
 ## Setup
@@ -33,7 +49,7 @@ export default {
 
 ```ts
 // vite.config.ts
-import { txPlugin } from "@mkx419/rollup-plugin-tx";
+import { txPlugin } from "@mkx419/vite-plugin-tx";
 import { defineConfig } from "vite";
 
 export default defineConfig({

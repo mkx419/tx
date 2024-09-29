@@ -22,14 +22,18 @@
   "scripts": {
     "ws:tx": "pnpm -F @mkx419/tx",
     "ws:rollup": "pnpm -F @mkx419/rollup-plugin-tx",
+    "ws:vite": "pnpm -F @mkx419/vite-plugin-tx",
     "build:tx": "pnpm ws:tx build",
     "build:rollup": "pnpm ws:rollup build",
-    "build": "pnpm build:tx && pnpm build:rollup",
+    "build:vite": "pnpm ws:vite build",
+    "build": "pnpm build:tx && pnpm build:rollup && pnpm build:vite",
     "test": "pnpm vitest",
     "version:tx": "pnpm ws:tx version",
     "version:rollup": "pnpm ws:rollup version",
+    "version:vite": "pnpm ws:vite version",
     "publish:tx": "pnpm ws:tx publish",
-    "publish:rollup": "pnpm ws:rollup publish"
+    "publish:rollup": "pnpm ws:rollup publish",
+    "publish:vite": "pnpm ws:vite publish"
   },
   "packageManager": "pnpm@9.10.0",
   "engines": {
