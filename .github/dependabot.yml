@@ -42,3 +42,13 @@ updates:
       dev-dependencies:
         patterns:
           - "rollup"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/vite"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "vite"
