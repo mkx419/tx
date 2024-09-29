@@ -64,7 +64,6 @@
     "@mkx419/tx": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
     "vite": "^5.4.8"
   }
 }

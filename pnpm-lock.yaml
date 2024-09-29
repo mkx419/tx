@@ -48,9 +48,6 @@ importers:
         specifier: workspace:^
         version: link:../tx
     devDependencies:
-      '@types/node':
-        specifier: ^22.5.5
-        version: 22.5.5
       rollup:
         specifier: ^4.22.4
         version: 4.22.4
@@ -79,9 +76,6 @@ importers:
         specifier: workspace:^
         version: link:../tx
     devDependencies:
-      '@types/node':
-        specifier: ^22.5.5
-        version: 22.5.5
       vite:
         specifier: ^5.4.8
         version: 5.4.8(@types/node@22.5.5)
@@ -2033,6 +2027,7 @@ snapshots:
   '@types/node@22.5.5':
     dependencies:
       undici-types: 6.19.8
+    optional: true
 
   '@typescript-eslint/eslint-plugin@8.5.0(@typescript-eslint/parser@8.5.0(eslint@9.10.0)(typescript@5.5.4))(eslint@9.10.0)(typescript@5.5.4)':
     dependencies:
@@ -2977,7 +2972,8 @@ snapshots:
 
   typescript@5.5.4: {}
 
-  undici-types@6.19.8: {}
+  undici-types@6.19.8:
+    optional: true
 
   uri-js@4.4.1:
     dependencies:
