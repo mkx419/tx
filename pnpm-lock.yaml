@@ -58,8 +58,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@mkx419/tsestree-walker':
-        specifier: ^0.1.0
-        version: 0.1.0(typescript@5.5.4)
+        specifier: ^0.1.1
+        version: 0.1.1(typescript@5.5.4)
       '@typescript-eslint/typescript-estree':
         specifier: ^8.7.0
         version: 8.7.0(typescript@5.5.4)
@@ -452,8 +452,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@mkx419/tsestree-walker@0.1.0':
-    resolution: {integrity: sha512-7SGw9w9406Hu+Bab9hkih1GREeAQutsb5P3g4TWKkoPEm5JCOdrDn4JkTFccEKjFbaRJO3wMUyBbSRuUdeZ/Dg==}
+  '@mkx419/tsestree-walker@0.1.1':
+    resolution: {integrity: sha512-3ZlIV57V2uyceN9QPQEvk8/eH0tEXls+T6EuvJYnnOjpE7K0rPHph3lhi0lzRf3xssQVvQm31G/74UCEP1i0AA==}
     engines: {pnpm: ^9.0.0}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -1806,7 +1806,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@mkx419/tsestree-walker@0.1.0(typescript@5.5.4)':
+  '@mkx419/tsestree-walker@0.1.1(typescript@5.5.4)':
     dependencies:
       '@typescript-eslint/typescript-estree': 8.7.0(typescript@5.5.4)
     transitivePeerDependencies:
