@@ -65,8 +65,8 @@
   },
   "dependencies": {
     "@ampproject/remapping": "^2.3.0",
-    "@mkx419/tsestree-walker": "^0.1.0",
-    "@typescript-eslint/typescript-estree": "^8.7.0",
-    "magic-string": "^0.30.11"
+    "@mkx419/tsestree-walker": "^0.1.1",
+    "@typescript-eslint/typescript-estree": "^8.12.2",
+    "magic-string": "^0.30.12"
   }
 }
