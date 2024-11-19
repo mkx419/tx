@@ -3,7 +3,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     versioning-strategy: "increase"
     groups:
       dev-dependencies:
@@ -23,7 +23,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/packages/tx"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     versioning-strategy: "increase"
     groups:
       dependencies:
@@ -36,7 +36,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/packages/rollup"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     versioning-strategy: "increase"
     groups:
       dev-dependencies:
@@ -46,7 +46,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/packages/vite"
     schedule:
-      interval: "daily"
+      interval: "weekly"
     versioning-strategy: "increase"
     groups:
       dev-dependencies:
