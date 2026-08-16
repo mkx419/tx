@@ -3,12 +3,12 @@
   "version": "0.1.1",
   "description": "Lightweight class variant API",
   "keywords": [
-    "tailwindcss",
     "classes",
     "classname",
     "classnames",
-    "variants",
-    "styles"
+    "styles",
+    "tailwindcss",
+    "variants"
   ],
   "homepage": "https://github.com/mkx419/tx#readme",
   "bugs": {
@@ -65,10 +65,15 @@
     "vite-plus": "catalog:"
   },
   "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.21.0",
-      "onFail": "download"
-    }
+    "packageManager": [
+      {
+        "name": "pnpm",
+        "version": "11.21.0",
+        "onFail": "download"
+      },
+      {
+        "name": "npm"
+      }
+    ]
   }
 }
