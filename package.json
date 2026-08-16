@@ -1,0 +1,76 @@
+{
+  "name": "@mkx419/tx",
+  "version": "0.0.0",
+  "description": "Lightweight class variant API",
+  "keywords": [
+    "tailwindcss",
+    "classes",
+    "classname",
+    "classnames",
+    "variants",
+    "styles"
+  ],
+  "homepage": "https://github.com/mkx419/tx#readme",
+  "bugs": {
+    "url": "https://github.com/mkx419/tx/issues"
+  },
+  "license": "MIT",
+  "author": "mkx419 <mkx419@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkx419/tx.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./compiler": "./dist/compiler.mjs",
+    "./esbuild": "./dist/esbuild.mjs",
+    "./rolldown": "./dist/rolldown.mjs",
+    "./rollup": "./dist/rollup.mjs",
+    "./rsbuild": "./dist/rsbuild.mjs",
+    "./rspack": "./dist/rspack.mjs",
+    "./types": "./dist/types.mjs",
+    "./unplugin": "./dist/unplugin.mjs",
+    "./vite": "./dist/vite.mjs",
+    "./webpack": "./dist/webpack.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "prepare": "vp config"
+  },
+  "dependencies": {
+    "esrap": "^2.3.2",
+    "magic-string": "^1.2.0",
+    "oxc-parser": "^0.144.0",
+    "unplugin": "^3.3.0",
+    "zimmerframe": "^1.1.4"
+  },
+  "devDependencies": {
+    "@oxc-node/cli": "^0.1.0",
+    "@types/estree": "^1.0.9",
+    "@types/node": "^26.1.1",
+    "bumpp": "^11.1.0",
+    "oxc-minify": "^0.144.0",
+    "typescript": "^7.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.21.0",
+      "onFail": "download"
+    }
+  }
+}
