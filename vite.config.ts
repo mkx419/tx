@@ -8,6 +8,9 @@ export default defineConfig({
       typeCheck: true,
     },
   },
+  test: {
+    coverage: {},
+  },
   pack: {
     entry: {
       index: "src/index.ts",

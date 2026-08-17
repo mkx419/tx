@@ -1,5 +1,5 @@
 import { expect, test } from "vite-plus/test";
-import { compileSync } from "../src/compiler/index.ts";
+import { compile, compileSync } from "../src/compiler/index.ts";
 
 const testCode = `\
 import { tx, tc } from "@mkx419/tx";
@@ -124,6 +124,43 @@ const button = (props) => {
 };\
 `;
 
-test("complex", () => {
-  expect(compileSync("complex.ts", testCode)).toBe(expectedCode);
+test("tx compiles nested tc calls", () => {
+  expect(compileSync("integration.ts", testCode)).toBe(expectedCode);
+});
+
+test("tx and tc support aliased imports", () => {
+  const code = `\
+import { tx as createButton, tc as joinClasses } from "@mkx419/tx";
+
+const button = createButton({
+  base: joinClasses("inline-flex", "items-center"),
+  variants: [],
+});\
+`;
+
+  const compiled = compileSync("aliased-imports.ts", code);
+
+  expect(compiled).not.toContain("@mkx419/tx");
+  expect(compiled).toContain("const button = (props) => {");
+  expect(compiled).toContain("let className = 'inline-flex items-center';");
+});
+
+test("compile supports the async API", async () => {
+  const code = `\
+import { tc } from "@mkx419/tx";
+
+const className = tc("async");\
+`;
+
+  expect(await compile("async.ts", code)).toBe(compileSync("async.ts", code));
+});
+
+test("compiler supports string-named imports", () => {
+  const code = `\
+import { "tc" as joinClasses } from "@mkx419/tx";
+
+const className = joinClasses("string-name");\
+`;
+
+  expect(compileSync("string-named-import.ts", code)).toBe("const className = 'string-name';");
 });

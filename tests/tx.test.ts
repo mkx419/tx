@@ -112,3 +112,31 @@ const className = tx({
   expect(compiled).toContain("'always'");
   expect(compiled).not.toContain("+ ''");
 });
+
+test("tx supports a base class without variants", () => {
+  const code = `\
+import { tx } from "@mkx419/tx";
+
+const className = tx({
+  base: "base shadow",
+  variants: [],
+});\
+`;
+
+  const compiled = compileSync("base-only-tx.ts", code);
+
+  expect(compiled).toContain("let className = 'base shadow';");
+  expect(compiled).not.toContain("if (");
+});
+
+test("tx supports string literal variant keys", () => {
+  const code = `\
+import { tx } from "@mkx419/tx";
+
+const className = tx({
+  variants: [{ "size": "sm", class: "text-sm" }],
+});\
+`;
+
+  expect(compileSync("string-key-tx.ts", code)).toContain("'text-sm'");
+});
