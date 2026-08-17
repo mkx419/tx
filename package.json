@@ -51,7 +51,6 @@
   },
   "dependencies": {
     "esrap": "^2.3.2",
-    "magic-string": "^1.2.0",
     "oxc-parser": "^0.144.0",
     "unplugin": "^3.3.0",
     "zimmerframe": "^1.1.4"
