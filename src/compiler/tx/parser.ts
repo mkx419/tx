@@ -81,7 +81,7 @@ function parseVariant(node: ArrayExpression["elements"][number]): Variant {
     props.push([key, value]);
   }
 
-  if (!className) {
+  if (className === undefined) {
     throw new Error(`Missing 'class' property in variant object`);
   }
 
@@ -93,13 +93,7 @@ function parseVariants(node: Property["value"]): Variant[] {
     throw new Error(`Unexpected value type for 'variants' in tx() config: ${node.type}`);
   }
 
-  const variants: Variant[] = [];
-
-  for (let i = 0; i < node.elements.length; i++) {
-    variants.push(parseVariant(node.elements[i]));
-  }
-
-  return variants;
+  return node.elements.map(parseVariant);
 }
 
 function parseDefaults(node: Property["value"]): Prop[] {
@@ -107,15 +101,11 @@ function parseDefaults(node: Property["value"]): Prop[] {
     throw new Error(`Unexpected value type for 'defaults' in tx() config: ${node.type}`);
   }
 
-  const defaults: Prop[] = [];
-
-  for (const prop of node.properties) {
+  return node.properties.map((prop) => {
     const { key, value } = parseProperty(prop);
 
-    defaults.push([key, value]);
-  }
-
-  return defaults;
+    return [key, value];
+  });
 }
 
 export default function parse(node: Node): IntermediateAST {

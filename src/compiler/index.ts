@@ -10,7 +10,7 @@ import transformTX from "./tx/index.ts";
 const PACKAGE_NAME = "@mkx419/tx";
 
 export function transform(program: Program): Program {
-  const state: { tx: string[]; tc: string[] } = { tx: [], tc: [] };
+  const state: { tx: Set<string>; tc: Set<string> } = { tx: new Set(), tc: new Set() };
 
   program.body = program.body.filter((node) => {
     if (node.type !== "ImportDeclaration" || node.source.value !== PACKAGE_NAME) {
@@ -34,11 +34,11 @@ export function transform(program: Program): Program {
       const local = specifier.local.name;
 
       if (name === "tx") {
-        state.tx.push(local);
+        state.tx.add(local);
       }
 
       if (name === "tc") {
-        state.tc.push(local);
+        state.tc.add(local);
       }
     }
 
@@ -51,11 +51,11 @@ export function transform(program: Program): Program {
         case "Identifier": {
           const calleeName = node.callee.name;
 
-          if (state.tx.includes(calleeName)) {
+          if (state.tx.has(calleeName)) {
             return transformTX(next(state) ?? node);
           }
 
-          if (state.tc.includes(calleeName)) {
+          if (state.tc.has(calleeName)) {
             return transformTC(node);
           }
 

@@ -92,3 +92,23 @@ const button = (props) => {
 test("tx", () => {
   expect(compileSync("tx.ts", testCode)).toBe(expectedCode);
 });
+
+test("tx supports variants without conditions", () => {
+  const code = `\
+import { tx } from "@mkx419/tx";
+
+const className = tx({
+  base: "base",
+  variants: [
+    { class: "always" },
+    { class: "" },
+  ],
+});\
+`;
+
+  const compiled = compileSync("unconditional-tx.ts", code);
+
+  expect(compiled).toContain("if (true)");
+  expect(compiled).toContain("'always'");
+  expect(compiled).not.toContain("+ ''");
+});

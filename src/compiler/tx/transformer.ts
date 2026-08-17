@@ -1,8 +1,10 @@
 import type {
   ArrowFunctionExpression,
   BinaryExpression,
+  Expression,
   Identifier,
   IfStatement,
+  Literal,
   LogicalExpression,
   Node,
   Property,
@@ -12,32 +14,48 @@ import type {
 import parse from "./parser.ts";
 import type { Prop, Variant } from "./types.ts";
 
-const PROPS_IDENTIFIER: Identifier = { type: "Identifier", name: "props" };
-const CLASS_NAME_IDENTIFIER: Identifier = { type: "Identifier", name: "className" };
-const MERGED_PROPS_IDENTIFIER: Identifier = { type: "Identifier", name: "_props" };
+type LiteralValue = string | boolean | number;
+
+const PROPS_NAME = "props";
+const CLASS_NAME = "className";
+const MERGED_PROPS_NAME = "_props";
+
+function identifier(name: string): Identifier {
+  return { type: "Identifier", name };
+}
+
+function literal(value: LiteralValue): Literal {
+  return { type: "Literal", value };
+}
+
+function property(key: string, value: LiteralValue): Property {
+  return {
+    type: "Property",
+    method: false,
+    shorthand: false,
+    computed: false,
+    key: literal(key),
+    value: literal(value),
+    kind: "init",
+  };
+}
 
 function transformDefaults(defaults: Prop[]): VariableDeclaration {
+  const propsIdentifier = identifier(PROPS_NAME);
+
   return {
     // ex. let _props = { size: "md", color: "primary", ...props };
     type: "VariableDeclaration",
     declarations: [
       {
         type: "VariableDeclarator",
-        id: MERGED_PROPS_IDENTIFIER,
+        id: identifier(MERGED_PROPS_NAME),
         init: {
           // ex. { size: "md", color: "primary", ...props }
           type: "ObjectExpression",
           properties: [
-            ...defaults.map(([key, value]): Property => ({
-              type: "Property",
-              method: false,
-              shorthand: false,
-              computed: false,
-              key: { type: "Literal", value: key },
-              value: { type: "Literal", value: value },
-              kind: "init",
-            })),
-            { type: "SpreadElement", argument: PROPS_IDENTIFIER },
+            ...defaults.map(([key, value]) => property(key, value)),
+            { type: "SpreadElement", argument: propsIdentifier },
           ],
         },
       },
@@ -53,12 +71,39 @@ function transformBase(base: string): VariableDeclaration {
     declarations: [
       {
         type: "VariableDeclarator",
-        id: CLASS_NAME_IDENTIFIER,
-        init: { type: "Literal", value: base },
+        id: identifier(CLASS_NAME),
+        init: literal(base),
       },
     ],
     kind: "let",
   };
+}
+
+function transformCondition(props: Prop[]): Expression {
+  const conditions = props.map(([key, value]): BinaryExpression => ({
+    // ex. _props.size === "md"
+    type: "BinaryExpression",
+    left: {
+      type: "MemberExpression",
+      object: identifier(MERGED_PROPS_NAME),
+      property: literal(key),
+      computed: true,
+      optional: false,
+    },
+    operator: "===",
+    right: literal(value),
+  }));
+
+  return conditions.slice(1).reduce<Expression>(
+    (previous, current): LogicalExpression => ({
+      // ex. _props.size === "md" && _props.color === "primary"
+      type: "LogicalExpression",
+      left: previous,
+      operator: "&&",
+      right: current,
+    }),
+    conditions[0] ?? literal(true),
+  );
 }
 
 function transformVariant(variant: Variant): IfStatement {
@@ -67,35 +112,7 @@ function transformVariant(variant: Variant): IfStatement {
   return {
     // if (_props.size === "md" && _props.color === "primary") { className += (className && " ") + "btn-primary"; }
     type: "IfStatement",
-    test: props
-      .map(([key, value]): BinaryExpression =>
-        // ex. _props.size === "md"
-        ({
-          type: "BinaryExpression",
-          left: {
-            type: "MemberExpression",
-            object: MERGED_PROPS_IDENTIFIER,
-            property: { type: "Literal", value: key },
-            computed: true,
-            optional: false,
-          },
-          operator: "===",
-          right: { type: "Literal", value: value },
-        }),
-      )
-      .reduce(
-        // @ts-expect-error
-        (
-          previous: BinaryExpression | LogicalExpression,
-          current: BinaryExpression,
-        ): LogicalExpression => ({
-          // ex. _props.size === "md" && _props.color === "primary"
-          type: "LogicalExpression",
-          left: previous,
-          operator: "&&",
-          right: current,
-        }),
-      ),
+    test: transformCondition(props),
     consequent: {
       type: "BlockStatement",
       body: [
@@ -104,7 +121,7 @@ function transformVariant(variant: Variant): IfStatement {
           expression: {
             // ex. className += (className && " ") + "btn-primary";
             type: "AssignmentExpression",
-            left: CLASS_NAME_IDENTIFIER,
+            left: identifier(CLASS_NAME),
             operator: "+=",
             right: {
               // ex. (className && " ") + "btn-primary"
@@ -112,12 +129,12 @@ function transformVariant(variant: Variant): IfStatement {
               left: {
                 // className && " "
                 type: "LogicalExpression",
-                left: CLASS_NAME_IDENTIFIER,
+                left: identifier(CLASS_NAME),
                 operator: "&&",
                 right: { type: "Literal", value: " " },
               },
               operator: "+",
-              right: { type: "Literal", value: className },
+              right: literal(className),
             },
           },
         },
@@ -128,6 +145,7 @@ function transformVariant(variant: Variant): IfStatement {
 
 export default function transform(node: Node): ArrowFunctionExpression {
   const { base, variants, defaults } = parse(node);
+  const classNameIdentifier = identifier(CLASS_NAME);
 
   return {
     // (props) => { ... }
@@ -135,17 +153,19 @@ export default function transform(node: Node): ArrowFunctionExpression {
     expression: false,
     generator: false,
     async: false,
-    params: [PROPS_IDENTIFIER],
+    params: [identifier(PROPS_NAME)],
     body: {
       type: "BlockStatement",
       body: [
         transformDefaults(defaults),
         transformBase(base),
-        ...variants.map((variant) => transformVariant(variant)),
+        ...variants
+          .filter(([, className]) => className.length > 0)
+          .map((variant) => transformVariant(variant)),
         {
           // return className;
           type: "ReturnStatement",
-          argument: CLASS_NAME_IDENTIFIER,
+          argument: classNameIdentifier,
         },
       ],
     },
